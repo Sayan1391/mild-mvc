@@ -118,6 +118,13 @@ class MysqlDAO implements GeneralDAO
 		return $this;
 	}
 
+	public function orderBy(string $column):GeneralDAO
+	{
+		$this->query['orderBy'] = $column;
+
+		return $this;
+	}
+
 	/**
 	 * @author farZa
 	 * @param string $type
@@ -272,7 +279,7 @@ class MysqlDAO implements GeneralDAO
 			return [];
 		}
 
-		$sql = 'SELECT ' . $this->query['select'] . ' FROM ' . $this->query['table'];
+		$sql = 'SELECT ' . $this->query['select'] . $this->query[''] . ' FROM ' . $this->query['table'];
 		$params = [];
 
 
@@ -284,6 +291,10 @@ class MysqlDAO implements GeneralDAO
 
 
 			$sql .= ' WHERE ' . $condition;
+		}
+
+		if (isset($this->query['orderBy'])) {
+			$sql .= ' ORDER BY ' . $this->query['orderBy'];
 		}
 
 		$stmt = $pdo->prepare($sql);

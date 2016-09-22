@@ -3,6 +3,8 @@ namespace controllers;
 
 use system\CView;
 
+use system\App;
+
 /**
  * Created by PhpStorm.
  * @author Sayan
@@ -12,12 +14,6 @@ use system\CView;
  */
 class NewsController
 {
-    public function __construct()
-    {
-        $database = new \PDO('mysql:host=127.0.0.1;dbname=my_database', 'root', '');
-        $this->pdo = $database;
-    }
-
     /**
      * @author Sayan
      * рендерим представления с формой добавления записи
@@ -35,9 +31,12 @@ class NewsController
      */
     public function actionCreateProcess()
     {
-        $sql = 'INSERT INTO news17 (title, description) VALUES ("' . $_POST["title"] . '", "' . $_POST["description"] . '")';
-
-        $result = $this->pdo->exec($sql);
+        $result = App::$db->table('news17')
+            ->insert([
+                'title' => $_POST["title"],
+                'description' => $_POST["description"]
+            ])
+            ->execute();
 
         if ($result === false) {
             throw new \Exception('Directory does not exist');
@@ -52,10 +51,11 @@ class NewsController
      */
     public function actionIndex()
     {
-        $sql = 'SELECT * FROM news17';
-        $sth = $this->pdo->prepare($sql);
-        $sth->execute();
-        $result = $sth->fetchAll();
+        $result = App::$db
+            ->select('*')
+            ->from('news17')
+            ->orderBy('title DESC')
+            ->fetchAll();
 
         $view = new CView();
         $view->render('index', [
@@ -69,10 +69,13 @@ class NewsController
      */
     public function actionView()
     {
-        $sql = 'SELECT * FROM news17 where id=' . $_GET['id'];
-        $sth = $this->pdo->prepare($sql);
-        $sth->execute();
-        $result = $sth->fetch();
+        $result = App::$db
+            ->select('*')
+            ->from('news17')
+            ->where([
+                'id' => $_GET['id']
+            ])
+            ->fetchRow();
 
         $view = new CView();
         $view->render('view', [
@@ -86,10 +89,13 @@ class NewsController
      */
     public function actionUpdate()
     {
-        $sql = 'SELECT * FROM news17 where id=' . $_GET['id'];
-        $sth = $this->pdo->prepare($sql);
-        $sth->execute();
-        $result = $sth->fetch();
+        $result = App::$db
+            ->select('*')
+            ->from('news17')
+            ->where([
+                'id' => $_GET['id']
+            ])
+            ->fetchRow();
         
         $view = new CView();
         $view->render('update', [
@@ -104,11 +110,16 @@ class NewsController
      */
     public function actionUpdateProcess()
     {
-        $sql = 'UPDATE news17 SET title="' . $_POST['title'] . '", description="' . $_POST['description'] . '" WHERE id=' . $_POST['id'];
-
-        $sth = $this->pdo->prepare($sql);
-        $sth->execute();
-        $result = $sth->rowCount();
+        $result = App::$db
+            ->table('news17')
+            ->update([
+                'title' => $_POST['title'],
+                'description' => $_POST['description'],
+            ])
+            ->where([
+                'id' => $_POST['id'],
+            ])
+            ->execute();
 
         if ($result === false) {
             throw new \Exception('Directory does not exist');
@@ -124,8 +135,13 @@ class NewsController
      */
     public function actionDelete()
     {
-        $sql = 'DELETE FROM news17 WHERE id=' . $_GET['id'];
-        $result = $this->pdo->exec($sql);
+        $result = App::$db
+            ->delete()
+            ->from('news17')
+            ->where([
+                'id' => $_GET['id'],
+            ])
+            ->execute();
 
         if ($result === false) {
             throw new \Exception('Directory does not exist');
