@@ -118,6 +118,12 @@ class MysqlDAO implements GeneralDAO
 		return $this;
 	}
 
+	/**
+	 * @author Sayan
+	 * @param string $column
+	 * @return \packs\PHPDAO\DAObjects\GeneralDAO
+	 * Alias table()
+	 */
 	public function orderBy(string $column):GeneralDAO
 	{
 		$this->query['orderBy'] = $column;

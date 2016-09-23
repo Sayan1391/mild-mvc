@@ -2,8 +2,8 @@
 namespace controllers;
 
 use system\CView;
-
 use system\App;
+use models\News;
 
 /**
  * Created by PhpStorm.
@@ -31,14 +31,12 @@ class NewsController
      */
     public function actionCreateProcess()
     {
-        $result = App::$db->table('news17')
-            ->insert([
-                'title' => $_POST["title"],
-                'description' => $_POST["description"]
-            ])
-            ->execute();
+        $model = new News();
+        $model->title = $_POST["title"];
+        $model->description = $_POST["description"];
+        $data = $model->save();
 
-        if ($result === false) {
+        if ($data != true) {
             throw new \Exception('Directory does not exist');
         }
 
@@ -51,15 +49,15 @@ class NewsController
      */
     public function actionIndex()
     {
-        $result = App::$db
-            ->select('*')
-            ->from('news17')
-            ->orderBy('title DESC')
-            ->fetchAll();
+        $model = new News();
+        $data = $model->findAll();
+
+//        echo '<pre>';
+//        var_dump($data);
 
         $view = new CView();
         $view->render('index', [
-            'result' => $result,
+            'data' => $data,
         ]);
     }
 
@@ -69,17 +67,12 @@ class NewsController
      */
     public function actionView()
     {
-        $result = App::$db
-            ->select('*')
-            ->from('news17')
-            ->where([
-                'id' => $_GET['id']
-            ])
-            ->fetchRow();
+        $model = new News();
+        $data = $model->findOne(['id' => $_GET['id']]);
 
         $view = new CView();
         $view->render('view', [
-            'result' => $result,
+            'result' => $data,
         ]);
     }
 
@@ -89,17 +82,12 @@ class NewsController
      */
     public function actionUpdate()
     {
-        $result = App::$db
-            ->select('*')
-            ->from('news17')
-            ->where([
-                'id' => $_GET['id']
-            ])
-            ->fetchRow();
-        
+        $model = new News();
+        $data = $model->findOne(['id' => $_GET['id']]);
+
         $view = new CView();
         $view->render('update', [
-            'result' => $result,
+            'data' => $data,
         ]);
     }
 
@@ -110,18 +98,15 @@ class NewsController
      */
     public function actionUpdateProcess()
     {
-        $result = App::$db
-            ->table('news17')
-            ->update([
-                'title' => $_POST['title'],
-                'description' => $_POST['description'],
-            ])
-            ->where([
-                'id' => $_POST['id'],
-            ])
-            ->execute();
+        $model = new News();
 
-        if ($result === false) {
+        $model2 = $model->findOne(['id' => $_POST['id']]);
+        
+        $model2->title = $_POST['title'];
+        $model2->description = $_POST['description'];
+        $data = $model2->save();
+        
+        if (!$data) {
             throw new \Exception('Directory does not exist');
         }
 
@@ -135,15 +120,11 @@ class NewsController
      */
     public function actionDelete()
     {
-        $result = App::$db
-            ->delete()
-            ->from('news17')
-            ->where([
-                'id' => $_GET['id'],
-            ])
-            ->execute();
+        $model = new News();
+        $model2 = $model->findOne(['id' => $_GET['id']]);
+        $data = $model2->delete();
 
-        if ($result === false) {
+        if ($data != true) {
             throw new \Exception('Directory does not exist');
         }
 

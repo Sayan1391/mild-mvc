@@ -10,13 +10,14 @@
 </div>
 
 <div class="page">
-    <?php foreach ($result as $key): ?>
+    <?php foreach ($data as $info): ?>
         <div class="news">
-            <div class="theme-box"><?= $key['title']; ?></div>
-            <div class="news-box"><?= $key['description']; ?></div>
+            <div class="theme-box"><?= $info->title; ?></div>
+            <div class="news-box"><?= $info->description; ?></div>
             <div class="status">
-                <a href="view?id=<?= $key['id']; ?>">Подробнее</a>
-                <a href="update?id=<?= $key['id']; ?>">Редактировать</a></div>
+                <a href="view?id=<?= $info->id; ?>">Подробнее</a>
+                <a href="update?id=<?= $info->id; ?>">Редактировать</a>
+            </div>
         </div>
     <?php endforeach; ?>
 </div>

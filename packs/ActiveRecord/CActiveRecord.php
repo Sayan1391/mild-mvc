@@ -76,4 +76,15 @@ class CActiveRecord implements IActiveRecord
 
         return $this->insert();
     }
+
+    public function delete()
+    {
+        return App::$db
+            ->delete()
+            ->from(static::$table)
+            ->where([
+                'id' => $this->id,
+            ])
+            ->execute();
+    }
 }

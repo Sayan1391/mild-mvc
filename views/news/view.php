@@ -7,8 +7,8 @@
 
 <div class="page">
     <div class="news">
-        <div class="theme-box"><?= $result['title']; ?></div>
-        <div class="news-box"><?= $result['description']; ?></div>
+        <div class="theme-box"><?= $data->title; ?></div>
+        <div class="news-box"><?= $data->description; ?></div>
     </div>
 </div>
 
