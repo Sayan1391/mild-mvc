@@ -4,7 +4,7 @@
 </head>
 <body>
 
-<form action="/news/UpdateProcess" method="post">
+<form action="" method="post">
     <div class="theme-block blocks">
         <label for="title">Загаловок</label><br>
         <input name="title" id="title" type="text" value="<?= $data->title; ?>">
@@ -15,10 +15,12 @@
         <textarea name="description" id="description"><?= $data->description; ?></textarea>
     </div>
 
-    <div><input type="submit" value="Обновить"></div>
+    <div>
+        <input type="button" onclick="ajaxNewsUpdate()" value="Обновить">
+    </div>
 
     <div class="delete">
-        <a href="Delete?id=<?= $data->id; ?>">Удалить</a>
+        <input type="button" onclick="ajaxNewsDelete()" value="Удалить">
     </div>
 
     <input type="hidden" name="id" value="<?= $data->id; ?>">

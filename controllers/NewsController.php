@@ -4,6 +4,7 @@ namespace controllers;
 use system\CView;
 use system\App;
 use models\News;
+use packs\PHPDAO\Classes\SysAjax;
 
 /**
  * Created by PhpStorm.
@@ -29,18 +30,20 @@ class NewsController
      * @throws \Exception
      * добавляем информацию в базу данных. Если True он возвращаеться в Index, False выводит исключение
      */
-    public function actionCreateProcess()
+
+    public function actionAjaxCreate()
     {
         $model = new News();
         $model->title = $_POST["title"];
         $model->description = $_POST["description"];
-        $data = $model->save();
+        $result = $model->save();
 
-        if ($data != true) {
-            throw new \Exception('Directory does not exist');
+        if (!$result) {
+            echo json_encode(['status' => 'err']);
+        } else {
+            echo json_encode(['status' => 'ok']);
         }
 
-        header('Location: /news/index');
     }
 
     /**
@@ -51,9 +54,6 @@ class NewsController
     {
         $model = new News();
         $data = $model->findAll();
-
-//        echo '<pre>';
-//        var_dump($data);
 
         $view = new CView();
         $view->render('index', [
@@ -72,7 +72,7 @@ class NewsController
 
         $view = new CView();
         $view->render('view', [
-            'result' => $data,
+            'data' => $data,
         ]);
     }
 
@@ -96,21 +96,21 @@ class NewsController
      * @throws \Exception
      * редактируем информацию в базе данных. Если True он возвращаеться в Index, False выводит исключение
      */
-    public function actionUpdateProcess()
+    public function actionAjaxUpdate()
     {
         $model = new News();
 
         $model2 = $model->findOne(['id' => $_POST['id']]);
-        
+
         $model2->title = $_POST['title'];
         $model2->description = $_POST['description'];
-        $data = $model2->save();
-        
-        if (!$data) {
-            throw new \Exception('Directory does not exist');
-        }
+        $result = $model2->save();
 
-        header('Location: /news/index');
+        if (!$result) {
+            echo json_encode(['status' => 'err']);
+        } else {
+            echo json_encode(['status' => 'ok']);
+        }
     }
 
     /**
@@ -118,16 +118,18 @@ class NewsController
      * @throws \Exception
      * рендерим представления с формой удаления записи. Если True он возвращаеться в Index, False выводит исключение
      */
-    public function actionDelete()
+    public function actionAjaxDelete()
     {
         $model = new News();
         $model2 = $model->findOne(['id' => $_GET['id']]);
-        $data = $model2->delete();
+        $result = $model2->delete();
 
-        if ($data != true) {
-            throw new \Exception('Directory does not exist');
+        if (!$result) {
+            echo json_encode(['status' => 'err']);
+        } else {
+            echo json_encode(['status' => 'ok']);
         }
-
-        header('Location: /news/index');
     }
+
+
 }
