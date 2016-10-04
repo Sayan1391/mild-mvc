@@ -4,7 +4,6 @@ namespace controllers;
 use system\CView;
 use system\App;
 use models\News;
-use packs\PHPDAO\Classes\SysAjax;
 
 /**
  * Created by PhpStorm.
@@ -61,6 +60,17 @@ class NewsController
         ]);
     }
 
+    public function actionAdmin()
+    {
+        $model = new News();
+        $data = $model->findAll();
+
+        $view = new CView();
+        $view->render('admin', [
+            'data' => $data,
+        ]);
+    }
+
     /**
      * @author Sayan
      * выводим информацию из базы данных указанного Id
@@ -99,7 +109,6 @@ class NewsController
     public function actionAjaxUpdate()
     {
         $model = new News();
-
         $model2 = $model->findOne(['id' => $_POST['id']]);
 
         $model2->title = $_POST['title'];
@@ -121,7 +130,7 @@ class NewsController
     public function actionAjaxDelete()
     {
         $model = new News();
-        $model2 = $model->findOne(['id' => $_GET['id']]);
+        $model2 = $model->findOne(['id' => $_POST['id']]);
         $result = $model2->delete();
 
         if (!$result) {

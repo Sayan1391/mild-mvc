@@ -1,14 +1,11 @@
 <form action="" method="post">
-
-    <div class="theme-block blocks">
-        <label for="title">Загаловок</label><br>
-        <input name="title" id="title" type="text">
+    <div class="form-group">
+        <label for="title">Загаловок</label>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Загаловок">
     </div>
-
-    <div class="news-block blocks">
-        <label for="description">Описание</label><br>
-        <textarea name="description" id="description"></textarea>
+    <div class="form-group">
+        <label for="description">Описание</label>
+        <textarea class="form-control" id="description" name="description" placeholder="Описание"></textarea>
     </div>
-    
-    <div><input type="button" onclick="ajaxNewsCreate()" value="Добавить"></div>
+    <div><input type="button" onclick="ajaxNewsCreate()" class="btn btn-default" value="Добавить"></div>
 </form>

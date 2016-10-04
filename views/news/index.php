@@ -1,26 +1,27 @@
-<html>
-<head>
-    <title>Index</title>
-    <link rel="stylesheet" type="text/css" href="/../style/style.css">
-</head>
-<body>
-
-<div class="create">
-    <a href="create">Добавить</a>
+<div class="row">
+    <div class="col-md-12">
+        <a href="../user/reg" class="reg btn btn-success">Регистрация</a>
+    </div>
 </div>
 
-<div class="page">
+<div class="row">
+    <div class="col-md-12">
+            <a href="create" class="create btn btn-primary">Добавить</a>
+    </div>
+</div>
+
+<div class="row">
     <?php foreach ($data as $info): ?>
-        <div class="news">
-            <div class="theme-box"><?= $info->title; ?></div>
-            <div class="news-box"><?= $info->description; ?></div>
-            <div class="status">
-                <a href="view?id=<?= $info->id; ?>">Подробнее</a>
-                <a href="update?id=<?= $info->id; ?>">Редактировать</a>
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <div class="caption">
+                <h3><?= $info->title; ?></h3>
+                <p><?= $info->description; ?></p>
+                <p>
+                    <a href="view?id=<?= $info->id; ?>" class="btn btn-default" role="button">Подробнее</a>
+                    <a href="update?id=<?= $info->id; ?>" class="btn btn-default" role="button">Редактировать</a></p>
             </div>
         </div>
+    </div>
     <?php endforeach; ?>
 </div>
-
-</body>
-</html>

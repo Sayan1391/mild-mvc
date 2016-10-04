@@ -1,0 +1,57 @@
+body {
+    margin-top: 50px;
+}
+
+.reg {
+    float: right;
+    margin-bottom: 50px;
+}
+
+.glyphicon:hover, .glyphicon:focus {
+    text-decoration: none!important;
+}
+
+.news {
+    display: inline-block;
+    margin-bottom: 10px;
+    border: 1px solid black;
+    /*width: 400px;*/
+    width: 100%;
+}
+
+.theme-box {
+    padding: 5px;
+    border-bottom: 1px solid black;
+}
+
+.news-box {
+    padding: 5px;
+}
+
+.status {
+    border-top: 1px solid black;
+    padding: 5px;
+}
+
+.create a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.create {
+    margin-bottom: 20px;
+}
+
+.button-update {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+header {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.text {
+    margin: 0px 0px 0px 100px;
+}

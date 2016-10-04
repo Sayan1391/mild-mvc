@@ -67,25 +67,36 @@ function ajaxNewsDelete() {
     var formData = form.serialize();
 
     $.ajax({
-        type: 'get',
+        type: 'post',
         url: '/news/AjaxDelete',
         dataType: 'json',
         data: formData,
 
-        success: function(result) {
+        success: function (result) {
+
             if ('err' == result.status) {
                 alert('Новость не удалена')
             }
 
             if ('ok' == result.status) {
                 alert('Новость удалена');
-                setTimeout(function() {
+                setTimeout(function () {
                     window.location.href = '/news/index';
                 }, 500);
             }
         },
-        complete: function() {
+        complete: function () {
         }
-    });
 
+        // success: function (message) {
+        //     if (message == true) {
+        //
+        //     } else {
+        //         alert('Новость не удалена');
+        //         return false;
+        //
+        //     }
+        // }
+
+    });
 }
