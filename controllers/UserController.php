@@ -26,17 +26,56 @@ class UserController
         $model->email = $_POST["email"];
         if ($_POST["password"] != $_POST["retype-password"]) {
             echo json_encode(['message' => 'err']);
-        } else {
-            $result = $model->save();
-            if (!$result) {
-                echo json_encode(['status' => 'err']);
-            } else {
-                echo json_encode(['status' => 'ok']);
-            }
-//            var_dump($result);
-//            die();
+            die();
         }
 
+        $result = $model->save();
+        if (!$result) {
+            echo json_encode(['status' => 'err']);
+            die();
+        } else {
+            echo json_encode(['status' => 'ok']);
+            die();
+        }
+    }
+
+    public function actionAccount()
+    {
+        $view = new CView();
+        $view->render('account');
+    }
+
+    public function actionAjaxAccount()
+    {
+        $model = new User();
+
+        $password = md5($_POST["password"]);
+
+        $model = $model->findOne(['login' => $_POST["login"]]);
+
+        if (!$model) {
+            echo json_encode(['status' => 'err']);
+            die();
+        }
+
+        if ($password != $model->password) {
+            echo json_encode(['status' => 'err']);
+            die();
+        } else {
+            $_SESSION['user_id'] = $model->id;
+            echo json_encode(['status' => 'ok']);
+            die();
+        }
+    }
+
+    public function actionAjaxLogout()
+    {
+        $model = new User();
+        unset($_SESSION['user_id']);
+
+        if (!$_SESSION['user_id']) {
+            echo json_encode(['status' => 'ok']);
+        }
 
     }
 }

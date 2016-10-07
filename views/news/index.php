@@ -1,12 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <a href="../user/reg" class="reg btn btn-success">Регистрация</a>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-            <a href="create" class="create btn btn-primary">Добавить</a>
+        <a href="create" class="create btn btn-primary">Добавить</a>
     </div>
 </div>
 
@@ -18,8 +12,9 @@
                 <h3><?= $info->title; ?></h3>
                 <p><?= $info->description; ?></p>
                 <p>
-                    <a href="view?id=<?= $info->id; ?>" class="btn btn-default" role="button">Подробнее</a>
-                    <a href="update?id=<?= $info->id; ?>" class="btn btn-default" role="button">Редактировать</a></p>
+                    <a href="/news/view?id=<?= $info->id; ?>" class="btn btn-default" role="button">Подробнее</a>
+                    <a href="/news/update?id=<?= $info->id; ?>" class="btn btn-default" role="button">Редактировать</a>
+                </p>
             </div>
         </div>
     </div>

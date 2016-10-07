@@ -2,9 +2,9 @@ body {
     margin-top: 50px;
 }
 
-.reg {
+.reg, .reg-button {
     float: right;
-    margin-bottom: 50px;
+    margin-left: 10px;
 }
 
 .glyphicon:hover, .glyphicon:focus {
@@ -39,6 +39,7 @@ body {
 }
 
 .create {
+    margin-top: 50px;
     margin-bottom: 20px;
 }
 

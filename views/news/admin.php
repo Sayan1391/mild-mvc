@@ -13,9 +13,9 @@
                 <td><?= $info->title; ?></td>
                 <td><?= $info->description; ?></td>
                 <td>
-                    <a href="view?id=<?= $info->id; ?>" class="glyphicon glyphicon-eye-open" role="button"></a>
-                    <a href="update?id=<?= $info->id; ?>" class="glyphicon glyphicon-wrench" role="button"></a>
-                    <a onclick="ajaxNewsDelete()" class="glyphicon glyphicon-remove" role="button"></a>
+                    <a href="/news/view?id=<?= $info->id; ?>" class="glyphicon glyphicon-eye-open" role="button"></a>
+                    <a href="/news/update?id=<?= $info->id; ?>" class="glyphicon glyphicon-wrench" role="button"></a>
+<!--                    <a onclick="ajaxNewsDelete()" class="glyphicon glyphicon-remove" role="button"></a>-->
                     <input type="hidden" name="id" value="<?= $data->id; ?>">
                 </td>
             </tr>
